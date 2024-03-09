@@ -80,7 +80,103 @@ The JSON result in MQTT:
 
 I am still working on this part, I hvae the value but I (as usual have some headacke with this).
 
+#### To get the values into HA add this to your configuration.yaml or sensors.yaml (you'll know):
+
+```yaml
+mqtt:
+  sensor:
+    - state_topic: "watermeter/main/value"
+      name: "Watermeter Value"
+      unique_id: watermeter_value
+      unit_of_measurement: 'm³'
+      state_class: total_increasing
+      device_class: water # Needs Home Assistant 2022.11!
+      icon: 'mdi:water-pump'
+      availability_topic: watermeter/connection
+      payload_available: connected
+      payload_not_available: connection lost
+
+    - state_topic: "watermeter/main/rate"
+      name: "Watermeter Rate"
+      unique_id: watermeter_rate
+      unit_of_measurement: 'm³/min'
+      state_class: measurement
+      device_class: water # Needs Home Assistant 2022.11!
+      icon: 'mdi:water-pump'
+      availability_topic: watermeter/connection
+      payload_available: connected
+      payload_not_available: connection lost
+
+    - state_topic: "watermeter/main/error"
+      name: "Watermeter Error"
+      unique_id: watermeter_error
+      icon: "mdi:water-alert"
+      availability_topic: watermeter/connection
+      payload_available: connected
+      payload_not_available: connection lost    
+
+    - state_topic: "watermeter/main/json"
+      name: "Watermeer JSON"
+      unique_id: watermeter_json
+      availability_topic: watermeter/connection
+      payload_available: connected
+      payload_not_available: connection lost
+
+    - state_topic: "watermeter/uptime"
+      name: "Watermeter Uptime"
+      unique_id: watermeter_uptime
+      unit_of_measurement: 's'
+      state_class: measurement
+      device_class: duration
+      entity_category: diagnostic
+      icon: "mdi:timer-outline"
+      availability_topic: watermeter/connection
+      payload_available: connected
+      payload_not_available: connection lost
+```
+
+#### So far so good, then add this to get more informaiton about the usage:
+
+```yaml
+utility_meter:
+  quaterhour_water:
+    source: sensor.watermeter_value
+    cycle: quarter-hourly
+    tariffs:
+      - peak
+  daily_water:
+    source: sensor.watermeter_value
+    cycle: daily
+    tariffs:
+      - peak
+  monthly_water:
+    source: sensor.watermeter_value
+    tariffs:
+      - peak
+```
+
+### In add this to your dashboard
+
+```yaml
+type: vertical-stack
+cards:
+  - hours_to_show: 24
+    graph: line
+    type: sensor
+    entity: sensor.daily_water_peak
+    detail: 2
+    name: Water Today
+```
+
+**That will give you a nice graph**<br/>
+[<img src="water-today.png" width="300"/>](water-today.png)
 
 
 
----> work in progress
+<br/>
+
+# Work in progress
+
+I am still working on getting the information into the "Energy" dashbard, but I am not happy with how it is ... more later. 
+
+
