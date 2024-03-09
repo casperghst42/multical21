@@ -82,6 +82,8 @@ I am still working on this part, I hvae the value but I (as usual have some head
 
 #### To get the values into HA add this to your configuration.yaml or sensors.yaml (you'll know):
 
+This is from [AI-on-the-edge-device](https://github.com/jomjol/AI-on-the-edge-device/wiki/Integration-Home-Assistant) and here: [https://community.home-assistant.io/t/ai-solution-for-analog-water-meter/378457/12](https://community.home-assistant.io/t/ai-solution-for-analog-water-meter/378457/12)
+
 ```yaml
 mqtt:
   sensor:
