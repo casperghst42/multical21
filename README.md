@@ -7,12 +7,12 @@ There are a few option to how one can read the values off the [Kamstrup Multical
 - ir
     - that might work, it might not. Someone found that the IR shuts down after 5 connections and will then come back to life after 12 hours (bugger). More about it here [[REQUEST] Water flow metering reading of IEC 62056-21 protocol smart water meters via photodiode/infrared optical eye reader header?](https://github.com/esphome/feature-requests/issues/1402#issuecomment-1531304437), 
 - using a camera to read take a photo ([AI-on-the-edge-device](https://github.com/jomjol/AI-on-the-edge-device))
-    - that will work, but it is more work and not as fun as using either of the two other option.
+    - that will work, but it is more work and not as fun as using either of the two other option. This is not a perfect solution but it work'ish. 
 
 
 ## What you need as per [AI-on-the-edge-device](https://github.com/jomjol/AI-on-the-edge-device):
 - ESP32 Cam module (ask [Google](http://www.google.com))
-    - a way to power it. I took an old USB cable, and connected the RED and WHITE wire to VCC and GND respectably. Worked like a charm.
+    - a way to power it. I took an old USB cable, and connected the RED and BLACK wire to VCC and GND respectably. Worked like a charm.
 - SD Card (not larger than 16GB, 4 or 8 will be fine)
 - a 3d Printer or access to one.
     - you to be able create a mount, which places the camera approx. 10 cm above the surface of the meter. 
